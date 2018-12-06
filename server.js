@@ -1,16 +1,32 @@
-require("dotenv").config();
+// Set up our dependencies for the project
 var express = require("express");
+var passport = require("passport");
+var session = require('express-session');
 var exphbs = require("express-handlebars");
 
+// pull the datebase in from the route in models
 var db = require("./models");
 
+// Set variable to the reference express
 var app = express();
-var PORT = process.env.PORT || 3000;
 
-// Middleware
+// Middleware use for Express
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static("public"));
+
+// For Passport 
+// session secret
+app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true}));     
+app.use(passport.initialize());
+// persistent login sessions
+app.use(passport.session()); 
+
+// Import the server file for server.js
+var env = require("dotenv").load(); 
+
+// Set the variable to reference the port and localhost port
+var PORT = process.env.PORT || 3000;
 
 // Handlebars
 app.engine(

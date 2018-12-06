@@ -2,8 +2,8 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "users_db",
-    "host": "localhost",
+    "database": "rapidbiome_db",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
@@ -15,7 +15,11 @@
     "logging": false
   },
   "production": {
-    "use_env_variable": "JAWSDB_URL",
+    
+    "username": "",
+    "password": null,
+    "database": "",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   }
 }
