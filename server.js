@@ -39,9 +39,9 @@ app.engine("handlebars", exphbs({
 
 
 // Routes
-require("./app/routes/auth")(app);
-require("./app/routes/apiRoutes")(app);
-require("./app/routes/htmlRoutes")(app);
+require("./app/routes/auth.js")(app,passport);
+require("./app/routes/apiRoutes.js")(app);
+require("./app/routes/htmlRoutes.js")(app);
 
 // Passport strategies
 require('./app/config/passport/passport.js')(passport, models.user);
