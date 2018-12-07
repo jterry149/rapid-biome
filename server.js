@@ -4,8 +4,11 @@ var passport = require("passport");
 var session = require('express-session');
 var exphbs = require("express-handlebars");
 
-// pull the datebase in from the route in models
-var db = require("./models");
+// Import the models folder
+var db = require("./app/models");
+
+// Set the port and localhost port
+var PORT = process.env.PORT || 3000;
 
 // Set variable to the reference express
 var app = express();
@@ -25,27 +28,30 @@ app.use(passport.session());
 // Import the server file for server.js
 var env = require("dotenv").load(); 
 
-// Set the variable to reference the port and localhost port
-var PORT = process.env.PORT || 3000;
+
 
 // Handlebars
-app.engine(
-  "handlebars",
-  exphbs({
+app.set("views", "./app/views");
+app.engine("handlebars", exphbs({
     defaultLayout: "main"
   })
 );
-app.set("view engine", "handlebars");
+
 
 // Routes
-require("./routes/apiRoutes")(app);
-require("./routes/htmlRoutes")(app);
+require("./app/routes/auth")(app);
+require("./app/routes/apiRoutes")(app);
+require("./app/routes/htmlRoutes")(app);
+
+// Passport strategies
+require('./app/config/passport/passport.js')(passport, models.user);
 
 var syncOptions = { force: false };
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
-if (process.env.NODE_ENV === "test") {
+if (process.env.NODE_ENV === "test") 
+{
   syncOptions.force = true;
 }
 

@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": null,
+    "password": "password",
     "database": "rapidbiome_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
@@ -16,9 +16,9 @@
   },
   "production": {
     
-    "username": "",
+    "username": "root",
     "password": null,
-    "database": "",
+    "database": "rapidtest_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
