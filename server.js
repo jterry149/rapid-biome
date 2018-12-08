@@ -56,7 +56,7 @@ require("./controllers/authcontroller.js")(app, passport);
 // Passport strategies
 require('./config/passport/passport')(passport, db.user);
 
-// Starting the server, syncing our models ------------------------------------/
+// Starting the server, syncing our models test ------------------------------------/
 db.sequelize.sync({ force: true }).then(function() 
 {
     app.listen(PORT, function(err) 
