@@ -1,4 +1,4 @@
-// Used to secure passwords
+// Used to load BCrypt for secure passwords
 var bCrypt = require('bcrypt-nodejs');
 
 module.exports = function(passport, user) 
@@ -18,17 +18,16 @@ module.exports = function(passport, user)
     passport.deserializeUser(function(id, done) 
     {
         User.findById(id).then(function(user) {
-        if(user)
-        {
-            done(null, user.get());
-        }
-        else
-        {
-            done(user.errors,null);
-        }
+            if(user)
+            {
+                done(null, user.get());
+            }
+            else
+            {
+                done(user.errors,null);
+            }
+        });
     });
-
-});
 
 
     // Passport local strategy for signup
@@ -38,8 +37,8 @@ module.exports = function(passport, user)
             passwordField: 'password',
             passReqToCallback: true
         },
-        function(req, email, password, done){
-
+        function(req, email, password, done)
+        {
             // Hashed passwords function
             var generateHash = function(password) 
             {
@@ -47,14 +46,12 @@ module.exports = function(passport, user)
             };
 
             // Using Sequelize we check to see if user exists if not add them
-            User.findOne({
-                where: {
-                    email: email
-                }
-            }).then(function(user){
+            User.findOne({ where: { email: email}}).then(function(user)
+            {
                 if(user)
                 {
-                    return done(null, false, {
+                    return done(null, false, 
+                        {
                         message: 'That email is already taken'
                     });
                 }else

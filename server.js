@@ -4,8 +4,11 @@ var passport = require("passport");
 var session = require('express-session');
 var exphbs = require("express-handlebars");
 
+// Import the server file for server.js
+var env = require("dotenv").load(); 
+
 // Import the models folder
-var db = require("./app/models");
+var models = require("./models");
 
 // Set the port and localhost port
 var PORT = process.env.PORT || 3000;
@@ -20,50 +23,51 @@ app.use(express.static("public"));
 
 // For Passport 
 // session secret
-app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true}));     
+app.use(session({ secret: 'rHUyjs6RmVOD06OdOTsVAyUUCxVXaWci',resave: true, saveUninitialized:true}));     
 app.use(passport.initialize());
 // persistent login sessions
 app.use(passport.session()); 
 
-// Import the server file for server.js
-var env = require("dotenv").load(); 
-
-
 
 // Handlebars
-app.set("views", "./app/views");
-app.engine("handlebars", exphbs({
-    defaultLayout: "main"
-  })
-);
+var viewsPath = path.join(__dirname, 'views');
+var layoutPath = path.join(viewsPath, 'layouts');
+var partialPath = path.join(viewsPath, 'partials');
+app.set('views', 'viewPath');
+
+var exphbsConfig = exphbs.create({
+    defaultLayout: 'main',
+    layoutsDir: layoutPath,
+    partialsDir: [partialPath],
+    extname: '.handlebars'
+});
+
+app.engine('handlebars', exphbsConfig.engine);
+app.set('view engine', '.handlebars');
+
 
 
 // Routes
-require("./app/routes/auth.js")(app,passport);
-require("./app/routes/apiRoutes.js")(app);
-require("./app/routes/htmlRoutes.js")(app);
+var authRoute = require("./routes/auth.js")(app, passport);
+require("./routes/apiRoutes.js")(app);
+require(".routes/htmlRoutes.js")(app);
 
 // Passport strategies
-require('./app/config/passport/passport.js')(passport, models.user);
-
-var syncOptions = { force: false };
-
-// If running a test, set syncOptions.force to true
-// clearing the `testdb`
-if (process.env.NODE_ENV === "test") 
-{
-  syncOptions.force = true;
-}
+require('./config/passport/passport.js')(passport, models.user);
 
 // Starting the server, syncing our models ------------------------------------/
-db.sequelize.sync(syncOptions).then(function() {
-  app.listen(PORT, function() {
-    console.log(
-      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
-      PORT,
-      PORT
-    );
-  });
+models.sequelize.sync().then(function() 
+{
+  app.listen(PORT, function(err) 
+  {
+      if (!err) 
+        console.log('Connected at http://localhost: '+ PORT);
+      else 
+        console.log(err);
+    });
+})
+.catch(function(err)
+{
+    console.log(err, 'Error on the Database Sync! Please try again');
 });
 
-module.exports = app;
