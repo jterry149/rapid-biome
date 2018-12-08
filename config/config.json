@@ -3,7 +3,7 @@
     "username": "root",
     "password": "password",
     "port": 3306,
-    "database": "rapidbiome_db",
+    "database": "rapidbiome",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
@@ -13,14 +13,14 @@
     "database": "rapidtest_db",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "logging": false
+    "port": 3306
   },
-  "production": {
-    
+  "production": { 
     "username": "root",
     "password": "password",
-    "database": "rapidtest_db",
+    "database": "rapidtest_production",
     "host": "127.0.0.1",
+    "port": 3306,
     "dialect": "mysql"
   }
 }

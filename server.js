@@ -3,21 +3,21 @@ var express = require("express");
 var passport = require("passport");
 var session = require('express-session');
 var exphbs = require("express-handlebars");
-
-// Import the server file for server.js
+var path = require('path');
 var env = require("dotenv").load(); 
-
-// Import the models folder
-var models = require("./models");
 
 // Set the port and localhost port
 var PORT = process.env.PORT || 3000;
-
 // Set variable to the reference express
 var app = express();
 
+// Import the models folder
+var db= require("./models");
+
+
+
 // Middleware use for Express
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
@@ -48,26 +48,20 @@ app.set('view engine', '.handlebars');
 
 
 // Routes
-var authRoute = require("./routes/auth.js")(app, passport);
-require("./routes/apiRoutes.js")(app);
-require(".routes/htmlRoutes.js")(app);
+require("./routes/auth.js")(app, passport);
+//require("./routes/apiRoutes.js")(app, passport);
+//require(".routes/htmlRoutes.js")(app, passport);
 
 // Passport strategies
-require('./config/passport/passport.js')(passport, models.user);
+require('./config/passport/passport')(passport, models.user);
 
 // Starting the server, syncing our models ------------------------------------/
-models.sequelize.sync().then(function() 
+db.sequelize.sync({ force: true }).then(function() 
 {
-  app.listen(PORT, function(err) 
-  {
-      if (!err) 
-        console.log('Connected at http://localhost: '+ PORT);
-      else 
-        console.log(err);
+    app.listen(PORT, function(err) 
+    {  
+        console.log('App listening on PORT '+ PORT);
     });
 })
-.catch(function(err)
-{
-    console.log(err, 'Error on the Database Sync! Please try again');
-});
+
 

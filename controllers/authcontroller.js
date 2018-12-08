@@ -15,12 +15,12 @@ module.exports = function(app, passport)
     app.post(
       '/signup',
       passport.authenticate('local-signup', {
-        successRedirect: '/dashboard',
+        successRedirect: '/home',
         failureRedirect: '/signup'
       })
     );
   
-    app.get('/dashboard', isLoggedIn, function(req, res)  {
+    app.get('/home', isLoggedIn, function(req, res)  {
       res.render('dashboard');
     });
   
@@ -31,7 +31,7 @@ module.exports = function(app, passport)
     });
   
     app.post('/signin',passport.authenticate('local-signin', {
-        successRedirect: '/dashboard',
+        successRedirect: '/home',
         failureRedirect: '/signin'
         })
     );
