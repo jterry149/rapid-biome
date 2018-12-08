@@ -33,7 +33,7 @@ app.use(passport.session());
 var viewsPath = path.join(__dirname, 'views');
 var layoutPath = path.join(viewsPath, 'layouts');
 var partialPath = path.join(viewsPath, 'partials');
-app.set('views', 'viewPath');
+app.set('views', viewsPath);
 
 var exphbsConfig = exphbs.create({
     defaultLayout: 'main',
@@ -47,13 +47,14 @@ app.set('view engine', '.handlebars');
 
 
 
-// Routes
-require("./routes/auth.js")(app, passport);
-//require("./routes/apiRoutes.js")(app, passport);
-//require(".routes/htmlRoutes.js")(app, passport);
+// Controller of routes
+require("./controllers/authcontroller.js")(app, passport);
+// Routes for pages
+require("./routes/apiRoutes.js")(app);
+require(".routes/htmlRoutes.js")(app);
 
 // Passport strategies
-require('./config/passport/passport')(passport, models.user);
+require('./config/passport/passport')(passport, db.user);
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync({ force: true }).then(function() 

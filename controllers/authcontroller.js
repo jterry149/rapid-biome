@@ -1,14 +1,14 @@
 module.exports = function(app, passport) 
 {
-    app.get('/', function(req, res)  {
+    app.get('/', (req, res) => {
       res.render('index');
     });
   
-    app.get('/signup', function(req, res)  {
+    app.get('/signup', (req, res) =>  {
       res.render('signup');
     });
   
-    app.get('/signin', function(req, res)  {
+    app.get('/signin', (req, res) =>  {
       res.render('signin');
     });
   
@@ -20,11 +20,11 @@ module.exports = function(app, passport)
       })
     );
   
-    app.get('/home', isLoggedIn, function(req, res)  {
-      res.render('dashboard');
+    app.get('/home', isLoggedIn, (req, res) =>  {
+      res.render('home');
     });
   
-    app.get('/logout', function(req, res) {
+    app.get('/logout', (req, res) => {
       req.session.destroy(err => {
         res.redirect('/');
       });
