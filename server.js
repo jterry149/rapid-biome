@@ -4,7 +4,7 @@ var passport = require("passport");
 var session = require('express-session');
 var exphbs = require("express-handlebars");
 var path = require('path');
-var env = require("dotenv").load(); 
+require("dotenv").load(); 
 
 // Set the port and localhost port
 var PORT = process.env.PORT || 3000;
@@ -50,8 +50,8 @@ app.set('view engine', '.handlebars');
 // Controller of routes
 require("./controllers/authcontroller.js")(app, passport);
 // Routes for pages
-require("./routes/apiRoutes.js")(app);
-require(".routes/htmlRoutes.js")(app);
+//require("./routes/apiRoutes.js")(app);
+//require(".routes/htmlRoutes.js")(app);
 
 // Passport strategies
 require('./config/passport/passport')(passport, db.user);
