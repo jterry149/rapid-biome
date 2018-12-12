@@ -23,11 +23,19 @@ module.exports = function(app, passport)
     app.get('/home', isLoggedIn, (req, res) =>  {
       res.render('home');
     });
+
+    app.get('/contact', (req, res) =>  {
+      res.render('contact');
+    });
   
     app.get('/logout', (req, res) => {
       req.session.destroy(err => {
         res.redirect('/');
       });
+    });
+
+    app.get('/contact', (req, res)=>{
+      res.render('contact');
     });
   
     app.post('/signin',passport.authenticate('local-signin', {
