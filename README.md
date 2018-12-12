@@ -1,16 +1,16 @@
-# rapid-biome
+# Fasting Companion
 
 ## Live Preview
 - [RapidBiome]()
 
 ## Author(s)
-    -
-    -
-    -
-    -
+    - Jessica
+    - Luca
+    - Ivan
+    - Almuthanna
 
 ## Description
-    Rapid Biome is a site which is a beginners guide to fasting for your health. 
+    Fasting Companion is a site which is a beginners guide to fasting for your health. 
 
 ## Technologies Used
 
@@ -24,6 +24,7 @@
     - Express
     - Sequelize
     - Passport
+    - PHP
 
     ### Database
     - MySQL
@@ -34,4 +35,6 @@
     - Mocha
 
 ## Future Features
-
+    - Nutrition Planner
+    - Workout Tracker
+    - Coaching Help
