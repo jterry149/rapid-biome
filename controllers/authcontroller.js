@@ -33,10 +33,6 @@ module.exports = function(app, passport)
         res.redirect('/');
       });
     });
-
-    app.get('/contact', (req, res)=>{
-      res.render('contact');
-    });
   
     app.post('/signin',passport.authenticate('local-signin', {
         successRedirect: '/home',
