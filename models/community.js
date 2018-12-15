@@ -1,1 +1,0 @@
-// Create the community model for the community forum
