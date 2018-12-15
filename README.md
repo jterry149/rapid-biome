@@ -1,7 +1,7 @@
 # Fasting Companion
 
 ## Live Preview
-- [RapidBiome]()
+- [RapidBiome](http://fasting-companion.herokuapp.com/)
 
 ## Author(s)
     - Jessica
